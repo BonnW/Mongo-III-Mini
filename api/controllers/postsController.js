@@ -7,7 +7,16 @@ const STATUS_USER_ERROR = 422;
 
 /* Fill in each of the below controller methods */
 const createPost = (req, res) => {
-
+  const { title, text } = req.body;
+  const newPost = new Post({ title, text });
+  newPost.save((err, createdPost) => {
+    if (err) {
+      res.status(STATUS_USER_ERROR);
+      res.json(err);
+      return;
+    }
+    res.json(createdPost);
+  });
 };
 
 const listPosts = (req, res) => {
